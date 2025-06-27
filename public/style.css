@@ -1,0 +1,13 @@
+/* public/styles.css */
+body {
+  font-family: 'Poppins', sans-serif;
+  scroll-behavior: smooth;
+}
+
+h1, p {
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  opacity: 0.9;
+}

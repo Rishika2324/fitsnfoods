@@ -1,0 +1,51 @@
+<!-- views/fashion.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fashion Picks - Flavors & Fits</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="/public/styles.css">
+</head>
+<body class="bg-pink-50 font-sans text-gray-800">
+
+  <header class="p-4 text-center bg-pink-200 shadow-md">
+    <h1 class="text-3xl font-bold text-pink-700">👗 Fashion Picks</h1>
+    <p class="text-sm">Explore cute outfit ideas for college, dates, and more!</p>
+  </header>
+
+  <!-- Outfit Gallery -->
+  <main class="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    
+    <!-- Outfit Card -->
+    <div class="bg-white rounded-xl overflow-hidden shadow-lg transform hover:scale-105 transition duration-300 animate__animated animate__fadeInUp">
+      <img src="https://i.pinimg.com/564x/bf/55/b3/bf55b3c576b535fc6163c2e327b1b1b5.jpg" alt="Outfit 1" class="w-full h-72 object-cover">
+      <div class="p-4">
+        <h2 class="font-semibold text-lg text-pink-600">Date Night Dress</h2>
+        <p class="text-sm text-gray-500">Elegant & flirty 💕</p>
+      </div>
+    </div>
+
+    <!-- Duplicate this card with different images/titles -->
+    <div class="bg-white rounded-xl overflow-hidden shadow-lg transform hover:scale-105 transition duration-300 animate__animated animate__fadeInUp">
+      <img src="https://i.pinimg.com/564x/e4/90/f0/e490f0f79880c6e6e8cf5d64a35b9617.jpg" alt="Outfit 2" class="w-full h-72 object-cover">
+      <div class="p-4">
+        <h2 class="font-semibold text-lg text-pink-600">College Look</h2>
+        <p class="text-sm text-gray-500">Trendy and comfortable 🌸</p>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl overflow-hidden shadow-lg transform hover:scale-105 transition duration-300 animate__animated animate__fadeInUp">
+      <img src="https://i.pinimg.com/564x/14/3a/03/143a0377be6126f60a0dc0ed27d6b9d3.jpg" alt="Outfit 3" class="w-full h-72 object-cover">
+      <div class="p-4">
+        <h2 class="font-semibold text-lg text-pink-600">Festive Fit</h2>
+        <p class="text-sm text-gray-500">Traditional with glam ✨</p>
+      </div>
+    </div>
+
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!-- views/food.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Yummy Recipes - Flavors & Fits</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="/public/styles.css">
+</head>
+<body class="bg-yellow-50 font-sans text-gray-800">
+
+  <header class="p-4 text-center bg-yellow-200 shadow-md">
+    <h1 class="text-3xl font-bold text-yellow-700">🍰 Yummy Recipes</h1>
+    <p class="text-sm">Explore aesthetic & easy food ideas to try!</p>
+  </header>
+
+  <!-- Food Gallery -->
+  <main class="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    
+    <!-- Food Card -->
+    <div class="bg-white rounded-xl overflow-hidden shadow-md transform hover:scale-105 transition duration-300 animate__animated animate__fadeInUp">
+      <img src="https://i.pinimg.com/564x/bd/4a/d1/bd4ad1d47982c4a6e42b35207e49f7f7.jpg" alt="Food 1" class="w-full h-64 object-cover">
+      <div class="p-4">
+        <h2 class="font-semibold text-lg text-yellow-600">Strawberry Pancakes</h2>
+        <p class="text-sm text-gray-500">Category: Dessert 🍓</p>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl overflow-hidden shadow-md transform hover:scale-105 transition duration-300 animate__animated animate__fadeInUp">
+      <img src="https://i.pinimg.com/564x/44/f4/55/44f455a4e1ec7e38ebc9356c3aee1684.jpg" alt="Food 2" class="w-full h-64 object-cover">
+      <div class="p-4">
+        <h2 class="font-semibold text-lg text-yellow-600">Iced Latte</h2>
+        <p class="text-sm text-gray-500">Category: Drink ☕</p>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl overflow-hidden shadow-md transform hover:scale-105 transition duration-300 animate__animated animate__fadeInUp">
+      <img src="https://i.pinimg.com/564x/36/13/18/361318137066e8f6e5cb9629c6ff7993.jpg" alt="Food 3" class="w-full h-64 object-cover">
+      <div class="p-4">
+        <h2 class="font-semibold text-lg text-yellow-600">Fruit Smoothie Bowl</h2>
+        <p class="text-sm text-gray-500">Category: Healthy 🥭</p>
+      </div>
+    </div>
+
+  </main>
+
+</body>
+</html>
