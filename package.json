@@ -1,0 +1,25 @@
+{
+  "name": "fitsnfoods",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rishika2324/fitsnfoods.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rishika2324/fitsnfoods/issues"
+  },
+  "homepage": "https://github.com/Rishika2324/fitsnfoods#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0",
+    "multer": "^2.0.1"
+  }
+}

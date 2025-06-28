@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cute Runner Game</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #fff0f5;
+      font-family: 'Comic Sans MS', cursive;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    canvas {
+      display: block;
+      margin: 20px auto;
+      border: 4px dashed pink;
+      background-color: #ffe4f2;
+    }
+
+    #scoreboard {
+      font-size: 20px;
+      color: #d63384;
+      margin-top: 10px;
+    }
+
+    #retryBtn {
+      display: none;
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    #endMessage {
+      display: none;
+      position: absolute;
+      top: 35%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      background: #fff8fb;
+      padding: 30px;
+      border: 4px dashed #ff99cc;
+      border-radius: 20px;
+      color: #d63384;
+      z-index: 10;
+      width: 400px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎀 Cute Runner: Jump the Cupcakes! 🍰</h1>
+  <canvas id="gameCanvas" width="800" height="300"></canvas>
+
+  <div id="scoreboard">
+    <span id="score">Score: 0</span> | <span id="timer">Time: 0s</span>
+  </div>
+
+  <button id="retryBtn">🔁 Retry Sweetie 💕</button>
+
+  <div id="endMessage"></div>
+
+<script>
+  const canvas = document.getElementById('gameCanvas');
+  const ctx = canvas.getContext('2d');
+  const retryBtn = document.getElementById('retryBtn');
+  const scoreDisplay = document.getElementById('score');
+  const timerDisplay = document.getElementById('timer');
+  const endMessage = document.getElementById('endMessage');
+
+  const girl = new Image();
+  girl.src = "/images/girl.png";
+
+  const cupcake = new Image();
+  cupcake.src = "/images/cupcake.png";
+
+  const cloud = new Image();
+  cloud.src = "/images/cloud.png";
+
+  const tree = new Image();
+  tree.src = "/images/tree.png";
+
+  const groundHeight = 50;
+  let girlX = 50, girlY = 200, velocityY = 0, jumpCount = 0;
+  const gravity = 0.8;
+  let score = 0;
+  let startTime = Date.now();
+  let gameOver = false;
+  let finalConfettiShown = false;
+
+  const obstacles = [
+    { x: 800 },
+    { x: 1200 },
+    { x: 1700 }
+  ];
+
+  const clouds = [
+    { x: 100, y: 30 },
+    { x: 400, y: 60 }
+  ];
+
+ const staticTrees = [
+  { x: 300, y: 180 },
+  { x: 500, y: 180 },
+  { x: 700, y: 180 }
+];
+
+
+  let particles = [];
+
+  function createFinalConfetti() {
+    for (let i = 0; i < 100; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: Math.random() * 4 - 2,
+        vy: Math.random() * -3 - 1,
+        color: `hsl(${Math.random() * 360}, 100%, 70%)`,
+        size: Math.random() * 5 + 2,
+        life: 100
+      });
+    }
+  }
+
+  function drawConfetti() {
+    particles.forEach((p, i) => {
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.2;
+      p.life--;
+      if (p.life <= 0) particles.splice(i, 1);
+    });
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#ffc0cb';
+    ctx.fillRect(0, 250, canvas.width, groundHeight);
+
+   ctx.globalAlpha = 0.3; // 30% opacity for extra light dreamy trees ✨
+staticTrees.forEach(t => ctx.drawImage(tree, t.x, t.y, 50, 70));
+ctx.globalAlpha = 1.0;
+
+
+    clouds.forEach(c => ctx.drawImage(cloud, c.x, c.y, 60, 30));
+    ctx.drawImage(girl, girlX, girlY, 35, 45);
+    obstacles.forEach(o => ctx.drawImage(cupcake, o.x, 210, 30, 30));
+
+    drawConfetti();
+
+    const timePassed = Math.floor((Date.now() - startTime) / 1000);
+    scoreDisplay.textContent = `Score: ${score}`;
+    timerDisplay.textContent = `Time: ${timePassed}s`;
+  }
+
+  function update() {
+    if (gameOver) return;
+
+    velocityY += gravity;
+    girlY += velocityY;
+    if (girlY > 200) {
+      girlY = 200;
+      velocityY = 0;
+      jumpCount = 0;
+    }
+
+    obstacles.forEach(ob => {
+      ob.x -= 3.5;
+      if (ob.x < -30) {
+        ob.x = 800 + Math.random() * 400;
+        score++;
+      }
+
+      const girlBox = { x: girlX + 5, y: girlY + 5, w: 25, h: 40 };
+      const cupcakeBox = { x: ob.x + 5, y: 210 + 5, w: 20, h: 25 };
+
+      const isColliding =
+        girlBox.x < cupcakeBox.x + cupcakeBox.w &&
+        girlBox.x + girlBox.w > cupcakeBox.x &&
+        girlBox.y < cupcakeBox.y + cupcakeBox.h &&
+        girlBox.y + girlBox.h > cupcakeBox.y;
+
+      if (isColliding && !gameOver) {
+        gameOver = true;
+        retryBtn.style.display = "inline-block";
+        endMessage.innerHTML = `🎊 Congratulations Sweetie!<br/>You scored <strong>${score}</strong> points!`;
+        endMessage.style.display = "block";
+        if (!finalConfettiShown) {
+          createFinalConfetti();
+          finalConfettiShown = true;
+        }
+      }
+    });
+
+    clouds.forEach(cloudObj => {
+      cloudObj.x -= 1;
+      if (cloudObj.x < -60) cloudObj.x = 800;
+    });
+
+    draw();
+    requestAnimationFrame(update);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if ((e.code === "Space" || e.code === "ArrowUp") && jumpCount < 2 && !gameOver) {
+      velocityY = -12;
+      jumpCount++;
+    }
+  });
+
+  retryBtn.onclick = () => {
+    girlY = 200;
+    velocityY = 0;
+    jumpCount = 0;
+    score = 0;
+    startTime = Date.now();
+    gameOver = false;
+    finalConfettiShown = false;
+    obstacles.forEach((ob, i) => ob.x = 800 + i * 400);
+    particles = [];
+    retryBtn.style.display = "none";
+    endMessage.style.display = "none";
+    update();
+  };
+
+  update();
+</script>
+
+</body>
+</html>
+
+
