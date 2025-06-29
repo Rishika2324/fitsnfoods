@@ -10,6 +10,7 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+
 // Serve HTML pages
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'index.html'));
@@ -26,6 +27,11 @@ app.get('/fashion', (req, res) => {
 app.get('/upload', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'upload.html'));
 });
+
+app.get('/game', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'game.html'));
+});
+
 
 // Multer setup (to save uploaded files in public/uploads)
 const storage = multer.diskStorage({
