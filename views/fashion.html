@@ -1,51 +1,119 @@
-<!-- views/fashion.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Fashion Picks - Flavors & Fits</title>
+  <title>Fashion Picks - FitsnFoods</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-  <link rel="stylesheet" href="/public/styles.css">
+  <style>
+    .masonry {
+      column-count: 1;
+    }
+    @media (min-width: 640px) {
+      .masonry { column-count: 2; }
+    }
+    @media (min-width: 768px) {
+      .masonry { column-count: 3; }
+    }
+    @media (min-width: 1024px) {
+      .masonry { column-count: 4; }
+    }
+
+    .masonry-item {
+      break-inside: avoid;
+      margin-bottom: 1rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .masonry-item:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 20px rgba(255, 182, 193, 0.4);
+    }
+
+    img {
+      width: 100%;
+      border-radius: 12px 12px 0 0;
+      display: block;
+    }
+  </style>
 </head>
 <body class="bg-pink-50 font-sans text-gray-800">
 
-  <header class="p-4 text-center bg-pink-200 shadow-md">
-    <h1 class="text-3xl font-bold text-pink-700">👗 Fashion Picks</h1>
-    <p class="text-sm">Explore cute outfit ideas for college, dates, and more!</p>
+  <header class="p-6 text-center bg-pink-200 shadow-md sticky top-0 z-10">
+    <h1 class="text-4xl font-extrabold text-pink-700">👗 Fashion Gallery</h1>
+    <p class="text-md text-pink-600 mt-1">Outfit inspiration for college girls, dates, brunch & more ✨</p>
+    <a href="index.html" class="inline-block mt-4 px-4 py-2 text-sm font-semibold text-white bg-pink-500 rounded-full hover:bg-pink-600 transition duration-300">🏠 Back to Home</a>
   </header>
 
-  <!-- Outfit Gallery -->
-  <main class="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+  <!-- Masonry Pinterest Grid -->
+  <main class="p-6 masonry">
     
-    <!-- Outfit Card -->
-    <div class="bg-white rounded-xl overflow-hidden shadow-lg transform hover:scale-105 transition duration-300 animate__animated animate__fadeInUp">
-      <img src="https://i.pinimg.com/564x/bf/55/b3/bf55b3c576b535fc6163c2e327b1b1b5.jpg" alt="Outfit 1" class="w-full h-72 object-cover">
-      <div class="p-4">
+    <!-- Repeat this block for each outfit -->
+    <div class="bg-white rounded-xl overflow-hidden shadow-md masonry-item animate__animated animate__fadeInUp">
+      <img src="datenightdress.jpg" alt="Date Night Dress">
+      <div class="p-3">
         <h2 class="font-semibold text-lg text-pink-600">Date Night Dress</h2>
-        <p class="text-sm text-gray-500">Elegant & flirty 💕</p>
+        <p class="text-sm text-gray-500 mt-1">Elegant & flirty 💕</p>
       </div>
     </div>
 
-    <!-- Duplicate this card with different images/titles -->
-    <div class="bg-white rounded-xl overflow-hidden shadow-lg transform hover:scale-105 transition duration-300 animate__animated animate__fadeInUp">
-      <img src="https://i.pinimg.com/564x/e4/90/f0/e490f0f79880c6e6e8cf5d64a35b9617.jpg" alt="Outfit 2" class="w-full h-72 object-cover">
-      <div class="p-4">
+    <div class="bg-white rounded-xl overflow-hidden shadow-md masonry-item animate__animated animate__fadeInUp">
+      <img src="collegedress.jpg" alt="College Look">
+      <div class="p-3">
         <h2 class="font-semibold text-lg text-pink-600">College Look</h2>
-        <p class="text-sm text-gray-500">Trendy and comfortable 🌸</p>
+        <p class="text-sm text-gray-500 mt-1">Trendy and comfy 🌸</p>
       </div>
     </div>
 
-    <div class="bg-white rounded-xl overflow-hidden shadow-lg transform hover:scale-105 transition duration-300 animate__animated animate__fadeInUp">
-      <img src="https://i.pinimg.com/564x/14/3a/03/143a0377be6126f60a0dc0ed27d6b9d3.jpg" alt="Outfit 3" class="w-full h-72 object-cover">
-      <div class="p-4">
+    <div class="bg-white rounded-xl overflow-hidden shadow-md masonry-item animate__animated animate__fadeInUp">
+      <img src="traditinaldress.jpg" alt="Festive Fit">
+      <div class="p-3">
         <h2 class="font-semibold text-lg text-pink-600">Festive Fit</h2>
-        <p class="text-sm text-gray-500">Traditional with glam ✨</p>
+        <p class="text-sm text-gray-500 mt-1">Traditional with glam ✨</p>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl overflow-hidden shadow-md masonry-item animate__animated animate__fadeInUp">
+      <img src="streetstyledress.jpg" alt="Street Style">
+      <div class="p-3">
+        <h2 class="font-semibold text-lg text-pink-600">Street Style</h2>
+        <p class="text-sm text-gray-500 mt-1">Cool girl vibes 😎</p>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl overflow-hidden shadow-md masonry-item animate__animated animate__fadeInUp">
+      <img src="brunchlook.jpg" alt="Brunch Look">
+      <div class="p-3">
+        <h2 class="font-semibold text-lg text-pink-600">Brunch Look</h2>
+        <p class="text-sm text-gray-500 mt-1">Sunny & sweet 🌞</p>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl overflow-hidden shadow-md masonry-item animate__animated animate__fadeInUp">
+      <img src="partywear.jpg" alt="Party Wear">
+      <div class="p-3">
+        <h2 class="font-semibold text-lg text-pink-600">Party Wear</h2>
+        <p class="text-sm text-gray-500 mt-1">Shine like a queen 👑</p>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl overflow-hidden shadow-md masonry-item animate__animated animate__fadeInUp">
+      <img src="summerfit.jpg" alt="Summer Fit">
+      <div class="p-3">
+        <h2 class="font-semibold text-lg text-pink-600">Summer Fit</h2>
+        <p class="text-sm text-gray-500 mt-1">Chic & breezy 🍃</p>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl overflow-hidden shadow-md masonry-item animate__animated animate__fadeInUp">
+      <img src="casualcombo.jpg" alt="Casual Combo">
+      <div class="p-3">
+        <h2 class="font-semibold text-lg text-pink-600">Casual Combo</h2>
+        <p class="text-sm text-gray-500 mt-1">Laid-back & stylish 🧋</p>
       </div>
     </div>
 
   </main>
-
 </body>
 </html>
