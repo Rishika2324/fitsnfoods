@@ -1,43 +1,106 @@
-<!-- views/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Flavors & Fits</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-<link rel="stylesheet" href="public/styles.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .video-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      z-index: -1;
+      object-fit: cover;
+      filter: brightness(0.7);
+    }
+
+    .hero-content {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      padding: 0 20px;
+    }
+
+    .hero-text h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      /* max-width: 600px; */
+      margin-bottom: 2rem;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .btn-outline {
+      border: 2px solid white;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      background-color: transparent;
+    }
+
+    .btn-outline:hover {
+      background-color: white;
+      color: #f472b6;
+    }
+
+    @media (max-width: 640px) {
+      .hero-text h1 {
+        font-size: 2rem;
+      }
+      .hero-text p {
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
-<body class="bg-pink-50 text-gray-800 font-sans">
+<body>
 
-  <!-- Hero Section -->
-  <section class="h-screen flex flex-col items-center justify-center text-center p-4 bg-gradient-to-br from-pink-100 via-white to-pink-200">
-    <h1 class="text-4xl md:text-6xl font-bold mb-4 animate__animated animate__fadeInDown text-pink-600">
-      Welcome to Flavors & Fits
-    </h1>
-    <p class="text-lg md:text-xl mb-6 max-w-md animate__animated animate__fadeInUp">
-      Your aesthetic world of delicious food and dreamy fashion 👗🍰
-    </p>
+  <!-- Background Video -->
+  <video autoplay muted loop class="video-bg">
+    <source src="bg-video.mp4" type="video/mp4" />
+  </video>
 
-    <div class="flex gap-4 animate__animated animate__zoomIn">
-      <a href="fashion.html" class="bg-pink-400 hover:bg-pink-500 text-white px-6 py-3 rounded-full text-lg shadow-lg transition transform hover:scale-105">
-        Explore Fashion 👗
-      </a>
-      <a href="food.html" class="bg-yellow-400 hover:bg-yellow-500 text-white px-6 py-3 rounded-full text-lg shadow-lg transition transform hover:scale-105">
-        Explore Food 🍰
-      </a>
-       <a href="upload.html" class="bg-purple-400 hover:bg-purple-500 text-white px-6 py-3 rounded-full text-lg shadow-lg transition transform hover:scale-105">
-    📸 Upload Post
-  </a>
-<a href="game.html" class="bg-purple-400 hover:bg-purple-500 text-white px-6 py-3 rounded-full text-lg shadow-lg transition transform hover:scale-105">
-  🎮 Play Cute Runner
-</a>
-
-</a>
+  <!-- Hero Content (Centered) -->
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1>Ancient Style, Modern Taste</h1>
+              <p>Step into your dreamy zone of fashion and food, curated for the stylish soul in you.</p>
+      <div class="btn-group">
+        <a href="fashion.html" class="btn-outline">Explore Fashion 👗</a>
+        <a href="food.html" class="btn-outline">Explore Food 🍰</a>
+        <a href="upload.html" class="btn-outline">📸 Upload Post</a>
+        <a href="game.html" class="btn-outline">🎮 Play Cute Runner</a>
+      </div>
     </div>
-  </section>
-
+  </div>
 
 </body>
 </html>
+
