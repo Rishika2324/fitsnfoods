@@ -6,10 +6,11 @@ const app = express();
 const PORT = 5000;
 
 // Middleware to serve static files
-app.use(express.static('public'));
+app.use(express.static('public')); // serves /public
+app.use('/views', express.static(path.join(__dirname, 'views'))); // serves /views
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 
 // Serve HTML pages
 app.get('/', (req, res) => {
@@ -32,7 +33,6 @@ app.get('/game', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'game.html'));
 });
 
-
 // Multer setup (to save uploaded files in public/uploads)
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -54,5 +54,4 @@ app.post('/upload', upload.single('media'), (req, res) => {
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
-
 });

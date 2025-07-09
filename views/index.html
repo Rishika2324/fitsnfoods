@@ -4,7 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Flavors & Fits</title>
+
+  <!-- Tailwind CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+
+  <!-- Google Font: 'Pacifico' (Girlish handwritten style) -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
   <style>
     body, html {
       margin: 0;
@@ -38,17 +44,20 @@
 
     .hero-text h1 {
       font-size: 3rem;
-      font-weight: 700;
+      font-family: 'Pacifico', cursive; /* 👈 Changed font here */
       margin-bottom: 1rem;
     }
 
     .hero-text p {
+      font-family: 'Dancing Script', cursive;
       font-size: 1.2rem;
+      line-height: 2.2rem;
       /* max-width: 600px; */
       margin-bottom: 2rem;
+       color: #ffeef8;
     }
 
-    .btn-group {
+    /* .btn-group {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
@@ -76,31 +85,106 @@
       }
       .hero-text p {
         font-size: 1rem;
-      }
-    }
+      } */
+    /* } */
+    .btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-top: 2rem;
+  }
+
+  .btn-glass {
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    color: white;
+    padding: 0.85rem 1.8rem;
+    border-radius: 2.5rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-glass::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -25%;
+    width: 150%;
+    height: 200%;
+    background: linear-gradient(120deg, rgba(255,255,255,0.4), transparent, rgba(255,255,255,0.1));
+    transform: rotate(45deg);
+    transition: all 0.5s ease;
+  }
+
+  .btn-glass:hover::before {
+    top: 0;
+    left: 100%;
+  }
+
+  .btn-glass:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+  }
+
+  .floating-runner {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 0.85rem 1.6rem;
+    border-radius: 2rem;
+    font-weight: 600;
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    color: white;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .floating-runner:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  }
   </style>
 </head>
 <body>
 
   <!-- Background Video -->
   <video autoplay muted loop class="video-bg">
-    <source src="bg-video.mp4" type="video/mp4" />
+   <source src="/videos/bg-video.mp4" type="video/mp4" />
+
   </video>
 
-  <!-- Hero Content (Centered) -->
+  <!-- Hero Content -->
   <div class="hero-content">
     <div class="hero-text">
       <h1>Ancient Style, Modern Taste</h1>
-              <p>Step into your dreamy zone of fashion and food, curated for the stylish soul in you.</p>
-      <div class="btn-group">
+      <p>Step into your dreamy zone of fashion and food, curated for the stylish soul in you.</p>
+      <!-- <div class="btn-group">
         <a href="fashion.html" class="btn-outline">Explore Fashion 👗</a>
         <a href="food.html" class="btn-outline">Explore Food 🍰</a>
         <a href="upload.html" class="btn-outline">📸 Upload Post</a>
         <a href="game.html" class="btn-outline">🎮 Play Cute Runner</a>
-      </div>
+      </div> -->
+      <div class="btn-group">
+  <a href="/fashion" class="btn-glass">Explore Fashion 👗</a>
+  <a href="/food" class="btn-glass">Explore Food 🍰</a>
+  <a href="/upload" class="btn-glass">📸 Upload Post</a>
+   <a href="/game" class="btn-glass">🎮 Play Cute Runner</a>
+      </div> 
+</div>
     </div>
   </div>
 
 </body>
 </html>
+
 
