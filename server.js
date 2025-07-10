@@ -33,6 +33,10 @@ app.get('/game', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'game.html'));
 });
 
+app.get('/photobooth', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'photobooth.html'));
+});
+
 // Multer setup (to save uploaded files in public/uploads)
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

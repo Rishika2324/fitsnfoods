@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Photobooth</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    body {
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(270deg, #f9d6e9, #b5e0fa, #ffe066, #b5e0fa, #f9d6e9);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease-in-out infinite;
+      font-family: 'Roboto', Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+    .photobooth-card {
+      background: rgba(255,255,255,0.95);
+      border-radius: 2rem;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+      padding: 2.5rem 2rem 2rem 2rem;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      margin: 2rem 0;
+    }
+    h1 {
+      font-family: 'Pacifico', cursive;
+      color: #ff6fa1;
+      font-size: 2.5rem;
+      margin-bottom: 1.2rem;
+      letter-spacing: 1px;
+    }
+    .controls {
+      margin-bottom: 1.5rem;
+    }
+    .controls label, .controls select {
+      font-size: 1.1rem;
+      margin: 0 0.3rem;
+      color: #444;
+    }
+    .controls input[type="file"] {
+      margin-bottom: 1rem;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .filters {
+      margin: 1rem 0 0.5rem 0;
+    }
+    .filters button {
+      background: #ff6fa1;
+      color: #fff;
+      border: none;
+      border-radius: 1.2rem;
+      padding: 0.5rem 1.2rem;
+      margin: 0 0.2rem 0.5rem 0.2rem;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      box-shadow: 0 2px 8px rgba(255,111,161,0.08);
+    }
+    .filters button:hover, .filters button.active {
+      background: #b5e0fa;
+      color: #ff6fa1;
+      transform: scale(1.08);
+    }
+    .grid-preview {
+      display: grid;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 1.5rem;
+      background: #f7f7fa;
+      border-radius: 1.2rem;
+      padding: 1rem;
+      min-height: 180px;
+      box-shadow: 0 2px 12px rgba(181,224,250,0.08);
+    }
+    .grid-preview img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 0.7rem;
+      box-shadow: 0 2px 8px rgba(255,111,161,0.08);
+      background: #fff;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      color: #ff6fa1;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover {
+      color: #b5e0fa;
+      text-decoration: underline;
+    }
+    /* Flower/Leaf Animation */
+    .float1 {
+      animation: float1 3.2s ease-in-out infinite;
+    }
+    .float2 {
+      animation: float2 2.7s ease-in-out infinite;
+    }
+    .float3 {
+      animation: float3 3.7s ease-in-out infinite;
+    }
+    .float4 {
+      animation: float4 2.9s ease-in-out infinite;
+    }
+    .float5 {
+      animation: float5 3.5s ease-in-out infinite;
+    }
+    @keyframes float1 {
+      0%, 100% { transform: translateY(0) scaleX(1); }
+      50% { transform: translateY(-18px) scaleX(1.05); }
+    }
+    @keyframes float2 {
+      0%, 100% { transform: translateY(0) scaleX(-1); }
+      50% { transform: translateY(-12px) scaleX(-1.05); }
+    }
+    @keyframes float3 {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(14px); }
+    }
+    @keyframes float4 {
+      0%, 100% { transform: translateY(0) scaleX(-1); }
+      50% { transform: translateY(10px) scaleX(-1.05); }
+    }
+    @keyframes float5 {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .custom-file-input {
+      display: none;
+    }
+    .custom-file-label {
+      display: inline-block;
+      background: #ff6fa1;
+      color: #fff;
+      border: none;
+      border-radius: 1.2rem;
+      padding: 0.6rem 1.5rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      box-shadow: 0 2px 8px rgba(255,111,161,0.08);
+      margin-bottom: 0.5rem;
+    }
+    .custom-file-label:hover {
+      background: #b5e0fa;
+      color: #ff6fa1;
+      transform: scale(1.05);
+    }
+    .file-name {
+      display: inline-block;
+      margin-left: 1rem;
+      color: #444;
+      font-size: 1rem;
+      vertical-align: middle;
+      max-width: 180px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="photobooth-card">
+    <h1>Photobooth</h1>
+    <div class="controls">
+      <label for="photoInput" class="custom-file-label">Choose Photo
+        <input type="file" id="photoInput" accept="image/*" style="display:none;">
+      </label>
+      <span id="fileName" class="file-name"></span>
+      <div style="margin: 0.7rem 0;">
+        <label for="gridSize">Grid Size:</label>
+        <select id="gridSize">
+          <option value="2">2x2</option>
+          <option value="3">3x3</option>
+          <option value="4">4x4</option>
+          <option value="5">5x5</option>
+          <option value="8">8x8</option>
+        </select>
+      </div>
+      <div class="filters">
+        <button type="button" onclick="setFilter('none', this)" class="active">None</button>
+        <button type="button" onclick="setFilter('grayscale(1)', this)">Grayscale</button>
+        <button type="button" onclick="setFilter('sepia(1)', this)">Sepia</button>
+        <button type="button" onclick="setFilter('invert(1)', this)">Invert</button>
+      </div>
+    </div>
+    <div id="preview" class="grid-preview"></div>
+    <div id="printOverlay" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(249,214,233,0.92);z-index:9999;align-items:center;justify-content:center;flex-direction:column;">
+      <div style="position:relative;display:flex;align-items:center;justify-content:center;min-height:600px;">
+        <!-- Left Decorations -->
+        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f33c.png" alt="flower" class="float1" style="width:90px;height:90px;position:absolute;left:-120px;top:60px;z-index:2;filter:drop-shadow(0 4px 12px #ffb6d5);">
+        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f343.png" alt="leaf" class="float3" style="width:60px;height:60px;position:absolute;left:-90px;bottom:120px;z-index:2;filter:drop-shadow(0 4px 12px #b5e0fa);">
+        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f33a.png" alt="sunflower" class="float5" style="width:70px;height:70px;position:absolute;left:-100px;top:260px;z-index:2;filter:drop-shadow(0 4px 12px #ffe066);">
+        <!-- Printer Image (Inline SVG) -->
+        <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:10;width:420px;height:120px;display:flex;align-items:flex-end;justify-content:center;">
+          <svg width="420" height="100" viewBox="0 0 420 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="30" y="30" width="360" height="50" rx="16" fill="#e0e0e0" stroke="#b5e0fa" stroke-width="8"/>
+            <rect x="75" y="10" width="270" height="30" rx="12" fill="#b5e0fa" stroke="#7ec4e3" stroke-width="6"/>
+            <rect x="90" y="60" width="240" height="20" rx="6" fill="#fff" stroke="#b5e0fa" stroke-width="4"/>
+            <circle cx="390" cy="55" r="12" fill="#ff6fa1"/>
+            <circle cx="60" cy="55" r="12" fill="#ffe066"/>
+            <rect x="150" y="80" width="120" height="10" rx="3" fill="#b5e0fa"/>
+          </svg>
+        </div>
+        <!-- Print Animation -->
+        <div id="printPhoto" style="background:#fff;border-radius:1.5rem;box-shadow:0 12px 40px 0 rgba(31,38,135,0.18);overflow:hidden;transform:translateY(-420px);transition:transform 1.5s cubic-bezier(.77,0,.18,1.1);width:420px;height:420px;display:flex;align-items:center;justify-content:center;position:relative;z-index:11;">
+          <!-- The grid image will be inserted here -->
+        </div>
+        <!-- Right Decorations -->
+        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f33c.png" alt="flower" class="float2" style="width:90px;height:90px;position:absolute;right:-120px;top:60px;z-index:2;filter:drop-shadow(0 4px 12px #ffb6d5);transform:scaleX(-1);">
+        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f343.png" alt="leaf" class="float4" style="width:60px;height:60px;position:absolute;right:-90px;bottom:120px;z-index:2;filter:drop-shadow(0 4px 12px #b5e0fa);transform:scaleX(-1);">
+        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f33a.png" alt="sunflower" class="float5" style="width:70px;height:70px;position:absolute;right:-100px;top:260px;z-index:2;filter:drop-shadow(0 4px 12px #ffe066);transform:scaleX(-1);">
+      </div>
+      <div id="printCompleteMsg" style="margin-top:2.5rem;font-family:'Pacifico',cursive;font-size:2rem;color:#ff6fa1;opacity:0;transition:opacity 0.5s;display:flex;align-items:center;justify-content:center;gap:0.7rem;">
+        <span>Print Complete!</span>
+        <span style="font-size:2.2rem;">✔️</span>
+      </div>
+    </div>
+    <div style="margin-top: 1.2rem;">
+      <label for="formatSelect" style="margin-right: 0.5rem; color:#444;">Download as:</label>
+      <select id="formatSelect" style="padding:0.3rem 0.7rem; border-radius:0.7rem; border:1px solid #ccc;">
+        <option value="png">PNG</option>
+        <option value="jpeg">JPEG</option>
+      </select>
+      <button id="downloadBtn" style="background:#b5e0fa;color:#fff;border:none;border-radius:1.2rem;padding:0.5rem 1.2rem;margin-left:0.7rem;font-size:1rem;font-weight:500;cursor:pointer;transition:background 0.2s;box-shadow:0 2px 8px rgba(181,224,250,0.08);">Download</button>
+    </div>
+    <a href="index.html" class="back-link">← Back to Home</a>
+  </div>
+  <script>
+    const photoInput = document.getElementById('photoInput');
+    const fileNameSpan = document.getElementById('fileName');
+    const gridSizeSelect = document.getElementById('gridSize');
+    const preview = document.getElementById('preview');
+    const filterButtons = document.querySelectorAll('.filters button');
+    let imageSrc = '';
+    let currentFilter = 'none';
+    const formatSelect = document.getElementById('formatSelect');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    photoInput.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      fileNameSpan.textContent = file ? file.name : '';
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          imageSrc = event.target.result;
+          renderGrid();
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    gridSizeSelect.addEventListener('change', renderGrid);
+
+    function setFilter(filter, btn) {
+      currentFilter = filter;
+      renderGrid();
+      filterButtons.forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+    }
+
+    function renderGrid() {
+      preview.innerHTML = '';
+      const size = parseInt(gridSizeSelect.value);
+      preview.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+      preview.style.gridTemplateRows = `repeat(${size}, 1fr)`;
+      if (!imageSrc) return;
+      for (let i = 0; i < size * size; i++) {
+        const img = document.createElement('img');
+        img.src = imageSrc;
+        img.style.filter = currentFilter;
+        preview.appendChild(img);
+      }
+    }
+
+    downloadBtn.addEventListener('click', function() {
+      if (!imageSrc) return alert('Please upload an image first!');
+      const size = parseInt(gridSizeSelect.value);
+      const cellSize = 300; // HIGH-RES for download
+      const canvas = document.createElement('canvas');
+      canvas.width = cellSize * size;
+      canvas.height = cellSize * size;
+      const ctx = canvas.getContext('2d');
+      const img = new window.Image();
+      img.onload = function() {
+        for (let row = 0; row < size; row++) {
+          for (let col = 0; col < size; col++) {
+            ctx.filter = currentFilter;
+            ctx.drawImage(img, col * cellSize, row * cellSize, cellSize, cellSize);
+          }
+        }
+        let format = formatSelect.value;
+        let mime = format === 'jpeg' ? 'image/jpeg' : 'image/png';
+        let ext = format === 'jpeg' ? 'jpg' : 'png';
+        // Show print animation overlay (bigger, more beautiful)
+        showPrintOverlay(canvas.toDataURL(mime), 400, 400);
+        // Download as before
+        const link = document.createElement('a');
+        link.download = `photobooth-grid.${ext}`;
+        link.href = canvas.toDataURL(mime);
+        link.click();
+      };
+      img.src = imageSrc;
+    });
+
+    // Print animation overlay logic (advanced)
+    function showPrintOverlay(dataUrl, w, h) {
+      const overlay = document.getElementById('printOverlay');
+      const printPhoto = document.getElementById('printPhoto');
+      const printMsg = document.getElementById('printCompleteMsg');
+      printPhoto.innerHTML = '';
+      printMsg.style.opacity = 0;
+      const img = document.createElement('img');
+      img.src = dataUrl;
+      img.style.width = w + 'px';
+      img.style.height = h + 'px';
+      img.style.display = 'block';
+      img.style.borderRadius = '1.2rem';
+      img.style.boxShadow = '0 8px 32px 0 rgba(31,38,135,0.18)';
+      printPhoto.appendChild(img);
+      overlay.style.display = 'flex';
+      setTimeout(() => {
+        printPhoto.style.transform = 'translateY(0)';
+      }, 100); // animate in
+      setTimeout(() => {
+        printMsg.style.opacity = 1;
+      }, 1700); // show message after print slides in
+      setTimeout(() => {
+        printPhoto.style.transform = 'translateY(700px)';
+        printMsg.style.opacity = 0;
+        setTimeout(() => {
+          overlay.style.display = 'none';
+          printPhoto.style.transform = 'translateY(-420px)';
+        }, 1300);
+      }, 3500); // show for 3.5s
+    }
+  </script>
+</body>
+</html> 
