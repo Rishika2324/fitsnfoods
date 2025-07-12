@@ -9,35 +9,59 @@
     body {
       min-height: 100vh;
       margin: 0;
-      background: linear-gradient(270deg, #f9d6e9, #b5e0fa, #ffe066, #b5e0fa, #f9d6e9);
-      background-size: 400% 400%;
-      animation: gradientBG 12s ease-in-out infinite;
       font-family: 'Roboto', Arial, sans-serif;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
+      position: relative;
+      overflow-y: auto;
+      padding: 2rem 0;
     }
-    @keyframes gradientBG {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
+    
+    /* Video Background */
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
     }
+    
+    /* Overlay for better readability */
+    .background-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(249, 214, 233, 0.3);
+      z-index: -1;
+    }
+
     .photobooth-card {
-      background: rgba(255,255,255,0.95);
+      background: rgba(255, 255, 255, 0.01);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
       border-radius: 2rem;
-      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
-      padding: 2.5rem 2rem 2rem 2rem;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+      padding: 1.5rem 2rem 1.5rem 2rem;
       max-width: 480px;
       width: 100%;
       text-align: center;
-      margin: 2rem 0;
+      margin: 1rem 0;
+      position: relative;
+      z-index: 1;
     }
     h1 {
       font-family: 'Pacifico', cursive;
-      color: #ff6fa1;
+      color: #ffffff;
       font-size: 2.5rem;
       margin-bottom: 1.2rem;
       letter-spacing: 1px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
     .controls {
       margin-bottom: 1.5rem;
@@ -45,7 +69,8 @@
     .controls label, .controls select {
       font-size: 1.1rem;
       margin: 0 0.3rem;
-      color: #444;
+      color: #ffffff;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     }
     .controls input[type="file"] {
       margin-bottom: 1rem;
@@ -57,32 +82,37 @@
       margin: 1rem 0 0.5rem 0;
     }
     .filters button {
-      background: #ff6fa1;
-      color: #fff;
-      border: none;
+      background: rgba(255, 255, 255, 0.9);
+      color: #333;
+      border: 2px solid rgba(255, 255, 255, 0.3);
       border-radius: 1.2rem;
-      padding: 0.5rem 1.2rem;
+      padding: 0.6rem 1.4rem;
       margin: 0 0.2rem 0.5rem 0.2rem;
       font-size: 1rem;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
-      transition: background 0.2s, transform 0.2s;
-      box-shadow: 0 2px 8px rgba(255,111,161,0.08);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
     .filters button:hover, .filters button.active {
-      background: #b5e0fa;
-      color: #ff6fa1;
-      transform: scale(1.08);
+      background: rgba(255, 255, 255, 1);
+      color: #000;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 255, 255, 0.5);
     }
     .grid-preview {
       display: grid;
       gap: 6px;
       justify-content: center;
-      margin-top: 1.5rem;
+      margin-top: 0.5rem;
       background: #f7f7fa;
       border-radius: 1.2rem;
       padding: 1rem;
-      min-height: 180px;
+      min-height: 140px;
+      max-height: 200px;
       box-shadow: 0 2px 12px rgba(181,224,250,0.08);
     }
     .grid-preview img {
@@ -96,14 +126,15 @@
     .back-link {
       display: inline-block;
       margin-top: 1.5rem;
-      color: #ff6fa1;
+      color: #ffffff;
       text-decoration: none;
       font-weight: 600;
       font-size: 1.1rem;
       transition: color 0.2s;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     }
     .back-link:hover {
-      color: #b5e0fa;
+      color: #ffe066;
       text-decoration: underline;
     }
     /* Flower/Leaf Animation */
@@ -147,37 +178,111 @@
     }
     .custom-file-label {
       display: inline-block;
-      background: #ff6fa1;
-      color: #fff;
-      border: none;
+      background: rgba(255, 255, 255, 0.9);
+      color: #333;
+      border: 2px solid rgba(255, 255, 255, 0.3);
       border-radius: 1.2rem;
-      padding: 0.6rem 1.5rem;
+      padding: 0.7rem 1.6rem;
       font-size: 1.1rem;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
-      transition: background 0.2s, transform 0.2s;
-      box-shadow: 0 2px 8px rgba(255,111,161,0.08);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       margin-bottom: 0.5rem;
     }
     .custom-file-label:hover {
-      background: #b5e0fa;
-      color: #ff6fa1;
-      transform: scale(1.05);
+      background: rgba(255, 255, 255, 1);
+      color: #000;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 255, 255, 0.5);
     }
     .file-name {
       display: inline-block;
       margin-left: 1rem;
-      color: #444;
+      color: #ffffff;
       font-size: 1rem;
       vertical-align: middle;
       max-width: 180px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+    #printOverlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(249,214,233,0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .print-overlay-inner {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .controls label[for="gridSize"] {
+      color: #222 !important;
+      text-shadow: none !important;
+      font-weight: 600;
+    }
+    #gridSize {
+      color: #222;
+      background: rgba(255,255,255,0.95);
+      border: 1.5px solid #bbb;
+      border-radius: 0.7rem;
+      padding: 0.3rem 1.2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      outline: none;
+      margin-left: 0.3rem;
+      margin-right: 0.3rem;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      transition: border 0.2s;
+    }
+    #gridSize:focus {
+      border: 1.5px solid #ff6fa1;
+    }
+    .preview-sticker { user-select: none; }
+    .preview-frame { pointer-events: none; }
+    
+    /* Sticker button hover effects */
+    .sticker-thumb:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.4) !important;
+      border-color: rgba(255,255,255,0.8) !important;
+    }
+    
+    /* Ensure sticker selector is visible */
+    #stickerSelector {
+      position: relative;
+      z-index: 10;
     }
   </style>
 </head>
 <body>
+  <!-- Video Background -->
+  <video class="video-background" autoplay muted loop>
+    <source src="/videos/4859780-uhd_4096_2160_25fps.mp4" type="video/mp4">
+  </video>
+  
+  <!-- Background Overlay -->
+  <div class="background-overlay"></div>
+  
   <div class="photobooth-card">
     <h1>Photobooth</h1>
     <div class="controls">
@@ -202,45 +307,36 @@
         <button type="button" onclick="setFilter('invert(1)', this)">Invert</button>
       </div>
     </div>
-    <div id="preview" class="grid-preview"></div>
-    <div id="printOverlay" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(249,214,233,0.92);z-index:9999;align-items:center;justify-content:center;flex-direction:column;">
-      <div style="position:relative;display:flex;align-items:center;justify-content:center;min-height:600px;">
-        <!-- Left Decorations -->
-        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f33c.png" alt="flower" class="float1" style="width:90px;height:90px;position:absolute;left:-120px;top:60px;z-index:2;filter:drop-shadow(0 4px 12px #ffb6d5);">
-        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f343.png" alt="leaf" class="float3" style="width:60px;height:60px;position:absolute;left:-90px;bottom:120px;z-index:2;filter:drop-shadow(0 4px 12px #b5e0fa);">
-        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f33a.png" alt="sunflower" class="float5" style="width:70px;height:70px;position:absolute;left:-100px;top:260px;z-index:2;filter:drop-shadow(0 4px 12px #ffe066);">
-        <!-- Printer Image (Inline SVG) -->
-        <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:10;width:420px;height:120px;display:flex;align-items:flex-end;justify-content:center;">
-          <svg width="420" height="100" viewBox="0 0 420 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="30" y="30" width="360" height="50" rx="16" fill="#e0e0e0" stroke="#b5e0fa" stroke-width="8"/>
-            <rect x="75" y="10" width="270" height="30" rx="12" fill="#b5e0fa" stroke="#7ec4e3" stroke-width="6"/>
-            <rect x="90" y="60" width="240" height="20" rx="6" fill="#fff" stroke="#b5e0fa" stroke-width="4"/>
-            <circle cx="390" cy="55" r="12" fill="#ff6fa1"/>
-            <circle cx="60" cy="55" r="12" fill="#ffe066"/>
-            <rect x="150" y="80" width="120" height="10" rx="3" fill="#b5e0fa"/>
-          </svg>
-        </div>
-        <!-- Print Animation -->
-        <div id="printPhoto" style="background:#fff;border-radius:1.5rem;box-shadow:0 12px 40px 0 rgba(31,38,135,0.18);overflow:hidden;transform:translateY(-420px);transition:transform 1.5s cubic-bezier(.77,0,.18,1.1);width:420px;height:420px;display:flex;align-items:center;justify-content:center;position:relative;z-index:11;">
-          <!-- The grid image will be inserted here -->
-        </div>
-        <!-- Right Decorations -->
-        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f33c.png" alt="flower" class="float2" style="width:90px;height:90px;position:absolute;right:-120px;top:60px;z-index:2;filter:drop-shadow(0 4px 12px #ffb6d5);transform:scaleX(-1);">
-        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f343.png" alt="leaf" class="float4" style="width:60px;height:60px;position:absolute;right:-90px;bottom:120px;z-index:2;filter:drop-shadow(0 4px 12px #b5e0fa);transform:scaleX(-1);">
-        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f33a.png" alt="sunflower" class="float5" style="width:70px;height:70px;position:absolute;right:-100px;top:260px;z-index:2;filter:drop-shadow(0 4px 12px #ffe066);transform:scaleX(-1);">
+    <!-- Sticker selection UI -->
+    <div id="stickerSelector" style="margin:0.5rem 0; text-align:center; background:rgba(255,255,255,0.2); padding:1rem; border-radius:1.5rem; backdrop-filter:blur(15px); border:2px solid rgba(255,255,255,0.3);">
+      <div style="font-weight:700; color:#ffffff; margin-bottom:0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5); font-size:1.1rem;">🎯 ADD STICKERS:</div>
+      <div class="sticker-thumb" data-sticker="heart" style="width:50px;height:50px;margin:0 8px;cursor:pointer;display:inline-block;background:#ff6fa1;border-radius:50%;position:relative;font-size:28px;line-height:50px;text-align:center;color:white;box-shadow:0 6px 16px rgba(0,0,0,0.4);transition:all 0.3s ease;border:3px solid rgba(255,255,255,0.5);">♥</div>
+      <div class="sticker-thumb" data-sticker="star" style="width:50px;height:50px;margin:0 8px;cursor:pointer;display:inline-block;background:#ffe066;border-radius:50%;position:relative;font-size:28px;line-height:50px;text-align:center;color:white;box-shadow:0 6px 16px rgba(0,0,0,0.4);transition:all 0.3s ease;border:3px solid rgba(255,255,255,0.5);">★</div>
+      <div class="sticker-thumb" data-sticker="smile" style="width:50px;height:50px;margin:0 8px;cursor:pointer;display:inline-block;background:#4ecdc4;border-radius:50%;position:relative;font-size:28px;line-height:50px;text-align:center;color:white;box-shadow:0 6px 16px rgba(0,0,0,0.4);transition:all 0.3s ease;border:3px solid rgba(255,255,255,0.5);">😊</div>
+      <div class="sticker-thumb" data-sticker="sparkle" style="width:50px;height:50px;margin:0 8px;cursor:pointer;display:inline-block;background:#ff9ff3;border-radius:50%;position:relative;font-size:28px;line-height:50px;text-align:center;color:white;box-shadow:0 6px 16px rgba(0,0,0,0.4);transition:all 0.3s ease;border:3px solid rgba(255,255,255,0.5);">✨</div>
+    </div>
+    <div id="preview" class="grid-preview" style="position:relative;"></div>
+    <!-- Frame selection UI -->
+    <div id="frameSelector" style="margin:0.5rem 0; text-align:center;">
+      <div style="font-weight:600; color:#222; margin-bottom:0.5rem;">Choose Frame:</div>
+      <div class="frame-thumb" data-frame="frame1" style="width:60px;height:60px;margin:0 8px;cursor:pointer;border:2px solid #bbb;border-radius:8px;display:inline-block;background:linear-gradient(45deg, #ff6fa1, #ffb3d9);position:relative;">
+        <div style="position:absolute;top:5px;left:5px;right:5px;bottom:5px;border:2px solid white;border-radius:4px;"></div>
       </div>
-      <div id="printCompleteMsg" style="margin-top:2.5rem;font-family:'Pacifico',cursive;font-size:2rem;color:#ff6fa1;opacity:0;transition:opacity 0.5s;display:flex;align-items:center;justify-content:center;gap:0.7rem;">
-        <span>Print Complete!</span>
-        <span style="font-size:2.2rem;">✔️</span>
+      <div class="frame-thumb" data-frame="frame2" style="width:60px;height:60px;margin:0 8px;cursor:pointer;border:2px solid #bbb;border-radius:8px;display:inline-block;background:linear-gradient(45deg, #ffe066, #ffcc00);position:relative;">
+        <div style="position:absolute;top:8px;left:8px;right:8px;bottom:8px;border:3px solid white;border-radius:8px;"></div>
+      </div>
+      <div class="frame-thumb" data-frame="frame3" style="width:60px;height:60px;margin:0 8px;cursor:pointer;border:2px solid #bbb;border-radius:8px;display:inline-block;background:linear-gradient(45deg, #4ecdc4, #44a08d);position:relative;">
+        <div style="position:absolute;top:3px;left:3px;right:3px;bottom:3px;border:1px solid white;border-radius:2px;"></div>
+        <div style="position:absolute;top:10px;left:10px;right:10px;bottom:10px;border:1px solid white;border-radius:2px;"></div>
       </div>
     </div>
     <div style="margin-top: 1.2rem;">
-      <label for="formatSelect" style="margin-right: 0.5rem; color:#444;">Download as:</label>
+      <label for="formatSelect" style="margin-right: 0.5rem; color:#ffffff; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">Download as:</label>
       <select id="formatSelect" style="padding:0.3rem 0.7rem; border-radius:0.7rem; border:1px solid #ccc;">
         <option value="png">PNG</option>
         <option value="jpeg">JPEG</option>
       </select>
-      <button id="downloadBtn" style="background:#b5e0fa;color:#fff;border:none;border-radius:1.2rem;padding:0.5rem 1.2rem;margin-left:0.7rem;font-size:1rem;font-weight:500;cursor:pointer;transition:background 0.2s;box-shadow:0 2px 8px rgba(181,224,250,0.08);">Download</button>
+      <button id="downloadBtn" style="background:rgba(255,255,255,0.9);color:#333;border:2px solid rgba(255,255,255,0.3);border-radius:1.2rem;padding:0.6rem 1.4rem;margin-left:0.7rem;font-size:1rem;font-weight:600;cursor:pointer;transition:all 0.3s ease;box-shadow:0 4px 15px rgba(0,0,0,0.2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);">Download</button>
     </div>
     <a href="index.html" class="back-link">← Back to Home</a>
   </div>
@@ -262,9 +358,17 @@
         const reader = new FileReader();
         reader.onload = function(event) {
           imageSrc = event.target.result;
-          renderGrid();
+          // Wait for image to load before rendering grid
+          const testImg = new window.Image();
+          testImg.onload = function() {
+            renderGrid();
+          };
+          testImg.src = imageSrc;
         };
         reader.readAsDataURL(file);
+      } else {
+        imageSrc = '';
+        renderGrid();
       }
     });
 
@@ -277,81 +381,267 @@
       if (btn) btn.classList.add('active');
     }
 
+    let selectedFrame = null;
+    let stickers = [];
+
+    // Frame selection logic
+    document.querySelectorAll('.frame-thumb').forEach(frame => {
+      frame.addEventListener('click', function() {
+        selectedFrame = this.getAttribute('data-frame');
+        document.querySelectorAll('.frame-thumb').forEach(f => f.style.borderColor = '#bbb');
+        this.style.borderColor = '#ff6fa1';
+        renderGrid();
+      });
+    });
+
+    // Sticker adding logic
+    document.querySelectorAll('.sticker-thumb').forEach(sticker => {
+      sticker.addEventListener('click', function() {
+        // Add sticker to center of preview
+        stickers.push({
+          type: this.getAttribute('data-sticker'),
+          x: 100 + Math.random()*100, // randomize a bit
+          y: 100 + Math.random()*100,
+          size: 60
+        });
+        renderGrid();
+      });
+    });
+
+    // Drag logic for stickers
+    let draggingSticker = null, offsetX = 0, offsetY = 0;
+    function makeStickersDraggable() {
+      document.querySelectorAll('.preview-sticker').forEach((el, idx) => {
+        el.onmousedown = function(e) {
+          draggingSticker = idx;
+          offsetX = e.offsetX;
+          offsetY = e.offsetY;
+        };
+      });
+      document.onmousemove = function(e) {
+        if (draggingSticker !== null) {
+          const previewRect = preview.getBoundingClientRect();
+          stickers[draggingSticker].x = e.clientX - previewRect.left - offsetX;
+          stickers[draggingSticker].y = e.clientY - previewRect.top - offsetY;
+          renderGrid();
+        }
+      };
+      document.onmouseup = function() { draggingSticker = null; };
+    }
+
     function renderGrid() {
       preview.innerHTML = '';
       const size = parseInt(gridSizeSelect.value);
       preview.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
       preview.style.gridTemplateRows = `repeat(${size}, 1fr)`;
-      if (!imageSrc) return;
-      for (let i = 0; i < size * size; i++) {
-        const img = document.createElement('img');
-        img.src = imageSrc;
-        img.style.filter = currentFilter;
-        preview.appendChild(img);
+      
+      // Only add grid images if there's an uploaded image
+      if (imageSrc) {
+        for (let i = 0; i < size * size; i++) {
+          const img = document.createElement('img');
+          img.src = imageSrc;
+          img.style.filter = currentFilter;
+          preview.appendChild(img);
+        }
       }
+      
+      // Add stickers to preview (always show them)
+      stickers.forEach(sticker => {
+        const s = document.createElement('div');
+        s.className = 'preview-sticker';
+        s.style.position = 'absolute';
+        s.style.left = sticker.x + 'px';
+        s.style.top = sticker.y + 'px';
+        s.style.width = s.style.height = sticker.size + 'px';
+        s.style.cursor = 'move';
+        s.style.zIndex = 10;
+        s.style.borderRadius = '50%';
+        s.style.display = 'flex';
+        s.style.alignItems = 'center';
+        s.style.justifyContent = 'center';
+        s.style.fontSize = '24px';
+        s.style.color = 'white';
+        
+        // Set sticker appearance based on type
+        switch(sticker.type) {
+          case 'heart':
+            s.style.background = '#ff6fa1';
+            s.textContent = '♥';
+            break;
+          case 'star':
+            s.style.background = '#ffe066';
+            s.textContent = '★';
+            break;
+          case 'smile':
+            s.style.background = '#4ecdc4';
+            s.textContent = '😊';
+            break;
+          case 'sparkle':
+            s.style.background = '#ff9ff3';
+            s.textContent = '✨';
+            break;
+        }
+        
+        preview.appendChild(s);
+      });
+      
+      // Add frame to preview (always show it if selected)
+      if (selectedFrame) {
+        // Apply frame styling to the preview container itself
+        switch(selectedFrame) {
+          case 'frame1':
+            preview.style.background = 'linear-gradient(45deg, #ff6fa1, #ffb3d9)';
+            preview.style.padding = '8px';
+            preview.style.borderRadius = '1.5rem';
+            break;
+          case 'frame2':
+            preview.style.background = 'linear-gradient(45deg, #ffe066, #ffcc00)';
+            preview.style.padding = '12px';
+            preview.style.borderRadius = '1.8rem';
+            break;
+          case 'frame3':
+            preview.style.background = 'linear-gradient(45deg, #4ecdc4, #44a08d)';
+            preview.style.padding = '6px';
+            preview.style.borderRadius = '1.3rem';
+            break;
+        }
+      } else {
+        // Reset frame styling when no frame is selected
+        preview.style.background = '#f7f7fa';
+        preview.style.padding = '1rem';
+        preview.style.borderRadius = '1.2rem';
+      }
+      
+      makeStickersDraggable();
     }
 
     downloadBtn.addEventListener('click', function() {
-      if (!imageSrc) return alert('Please upload an image first!');
-      const size = parseInt(gridSizeSelect.value);
-      const cellSize = 300; // HIGH-RES for download
-      const canvas = document.createElement('canvas');
-      canvas.width = cellSize * size;
-      canvas.height = cellSize * size;
-      const ctx = canvas.getContext('2d');
-      const img = new window.Image();
+      if (!imageSrc) {
+        alert('Please upload an image first!');
+        return;
+      }
+      
+      try {
+        const size = parseInt(gridSizeSelect.value);
+        const cellSize = 800; // HIGH-RES for download
+        const canvas = document.createElement('canvas');
+        canvas.width = cellSize * size;
+        canvas.height = cellSize * size;
+        const ctx = canvas.getContext('2d');
+        
+        // Enable high-quality rendering
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        
+        const img = new window.Image();
+        img.crossOrigin = 'anonymous';
       img.onload = function() {
-        for (let row = 0; row < size; row++) {
-          for (let col = 0; col < size; col++) {
-            ctx.filter = currentFilter;
-            ctx.drawImage(img, col * cellSize, row * cellSize, cellSize, cellSize);
+        // Draw frame background first (if selected)
+        if (selectedFrame) {
+          const framePadding = selectedFrame === 'frame1' ? 8 : selectedFrame === 'frame2' ? 12 : 6;
+          const padding = framePadding * (canvas.width/preview.offsetWidth);
+          
+          // Create gradient for frame background
+          let gradient;
+          if (selectedFrame === 'frame1') {
+            gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#ff6fa1');
+            gradient.addColorStop(1, '#ffb3d9');
+          } else if (selectedFrame === 'frame2') {
+            gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#ffe066');
+            gradient.addColorStop(1, '#ffcc00');
+          } else {
+            gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#4ecdc4');
+            gradient.addColorStop(1, '#44a08d');
+          }
+          
+          // Draw frame background with better quality
+          ctx.fillStyle = gradient;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          
+          // Add subtle border for better frame definition
+          ctx.strokeStyle = 'rgba(255,255,255,0.8)';
+          ctx.lineWidth = padding * 0.1;
+          ctx.strokeRect(padding, padding, canvas.width - 2*padding, canvas.height - 2*padding);
+          
+          // Draw images on top of frame background
+          for (let row = 0; row < size; row++) {
+            for (let col = 0; col < size; col++) {
+              ctx.filter = currentFilter;
+              ctx.drawImage(img, 
+                padding + col * (cellSize - 2*padding/size), 
+                padding + row * (cellSize - 2*padding/size), 
+                cellSize - 2*padding/size, 
+                cellSize - 2*padding/size
+              );
+            }
+          }
+        } else {
+          // Draw images normally when no frame is selected
+          for (let row = 0; row < size; row++) {
+            for (let col = 0; col < size; col++) {
+              ctx.filter = currentFilter;
+              ctx.drawImage(img, col * cellSize, row * cellSize, cellSize, cellSize);
+            }
           }
         }
-        let format = formatSelect.value;
-        let mime = format === 'jpeg' ? 'image/jpeg' : 'image/png';
-        let ext = format === 'jpeg' ? 'jpg' : 'png';
-        // Show print animation overlay (bigger, more beautiful)
-        showPrintOverlay(canvas.toDataURL(mime), 400, 400);
-        // Download as before
-        const link = document.createElement('a');
-        link.download = `photobooth-grid.${ext}`;
-        link.href = canvas.toDataURL(mime);
-        link.click();
+        
+        // Draw stickers on top of everything
+        stickers.forEach(sticker => {
+          const stickerX = sticker.x * (canvas.width/preview.offsetWidth);
+          const stickerY = sticker.y * (canvas.height/preview.offsetHeight);
+          const stickerSize = sticker.size * (canvas.width/preview.offsetWidth);
+          
+          // Draw sticker background with better quality
+          ctx.fillStyle = sticker.type === 'heart' ? '#ff6fa1' : 
+                         sticker.type === 'star' ? '#ffe066' : 
+                         sticker.type === 'smile' ? '#4ecdc4' : '#ff9ff3';
+          ctx.beginPath();
+          ctx.arc(stickerX + stickerSize/2, stickerY + stickerSize/2, stickerSize/2, 0, 2 * Math.PI);
+          ctx.fill();
+          
+          // Add subtle shadow for better appearance
+          ctx.shadowColor = 'rgba(0,0,0,0.3)';
+          ctx.shadowBlur = stickerSize * 0.1;
+          ctx.shadowOffsetX = stickerSize * 0.05;
+          ctx.shadowOffsetY = stickerSize * 0.05;
+          
+          // Draw sticker text with better font
+          ctx.fillStyle = 'white';
+          ctx.font = `bold ${stickerSize * 0.7}px Arial, sans-serif`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          const stickerText = sticker.type === 'heart' ? '♥' : 
+                             sticker.type === 'star' ? '★' : 
+                             sticker.type === 'smile' ? '😊' : '✨';
+          ctx.fillText(stickerText, stickerX + stickerSize/2, stickerY + stickerSize/2);
+          
+          // Reset shadow
+          ctx.shadowColor = 'transparent';
+          ctx.shadowBlur = 0;
+          ctx.shadowOffsetX = 0;
+          ctx.shadowOffsetY = 0;
+        });
+        
+        finishDownload();
+        function finishDownload() {
+          let format = formatSelect.value;
+          let mime = format === 'jpeg' ? 'image/jpeg' : 'image/png';
+          let ext = format === 'jpeg' ? 'jpg' : 'png';
+          const link = document.createElement('a');
+          link.download = `photobooth-grid.${ext}`;
+          link.href = canvas.toDataURL(mime);
+          link.click();
+        }
       };
       img.src = imageSrc;
+      } catch (error) {
+        console.error('Download error:', error);
+        alert('Error creating download. Please try again.');
+      }
     });
-
-    // Print animation overlay logic (advanced)
-    function showPrintOverlay(dataUrl, w, h) {
-      const overlay = document.getElementById('printOverlay');
-      const printPhoto = document.getElementById('printPhoto');
-      const printMsg = document.getElementById('printCompleteMsg');
-      printPhoto.innerHTML = '';
-      printMsg.style.opacity = 0;
-      const img = document.createElement('img');
-      img.src = dataUrl;
-      img.style.width = w + 'px';
-      img.style.height = h + 'px';
-      img.style.display = 'block';
-      img.style.borderRadius = '1.2rem';
-      img.style.boxShadow = '0 8px 32px 0 rgba(31,38,135,0.18)';
-      printPhoto.appendChild(img);
-      overlay.style.display = 'flex';
-      setTimeout(() => {
-        printPhoto.style.transform = 'translateY(0)';
-      }, 100); // animate in
-      setTimeout(() => {
-        printMsg.style.opacity = 1;
-      }, 1700); // show message after print slides in
-      setTimeout(() => {
-        printPhoto.style.transform = 'translateY(700px)';
-        printMsg.style.opacity = 0;
-        setTimeout(() => {
-          overlay.style.display = 'none';
-          printPhoto.style.transform = 'translateY(-420px)';
-        }, 1300);
-      }, 3500); // show for 3.5s
-    }
   </script>
 </body>
 </html> 
