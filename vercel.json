@@ -1,11 +1,16 @@
 {
-  "rewrites": [
-    { "source": "/", "destination": "/views/index.html" },
-    { "source": "/food", "destination": "/views/food.html" },
-    { "source": "/fashion", "destination": "/views/fashion.html" },
-    { "source": "/game", "destination": "/views/game.html" },
-    { "source": "/photobooth", "destination": "/views/photobooth.html" },
-    { "source": "/upload", "destination": "/views/upload.html" }
+  "version": 2,
+  "builds": [
+    { "src": "public/**/*", "use": "@vercel/static" },
+    { "src": "views/**/*.html", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "^/$", "dest": "/views/index.html" },
+    { "src": "^/food$", "dest": "/views/food.html" },
+    { "src": "^/fashion$", "dest": "/views/fashion.html" },
+    { "src": "^/game$", "dest": "/views/game.html" },
+    { "src": "^/photobooth$", "dest": "/views/photobooth.html" },
+    { "src": "^/upload$", "dest": "/views/upload.html" }
   ]
 }
 
