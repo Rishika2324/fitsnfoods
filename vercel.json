@@ -1,0 +1,11 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/views/index.html" },
+    { "source": "/food", "destination": "/views/food.html" },
+    { "source": "/fashion", "destination": "/views/fashion.html" },
+    { "source": "/game", "destination": "/views/game.html" },
+    { "source": "/photobooth", "destination": "/views/photobooth.html" },
+    { "source": "/upload", "destination": "/views/upload.html" }
+  ]
+}
+

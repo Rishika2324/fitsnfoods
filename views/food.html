@@ -40,60 +40,111 @@
 </head>
 <body class="bg-yellow-50 font-sans text-gray-800">
 
-  <header class="p-6 text-center bg-yellow-200 shadow-md sticky top-0 z-10">
-    <h1 class="text-4xl font-extrabold text-yellow-800">🍱 Explore Food</h1>
-    <p class="text-md text-yellow-700 mt-1">Yummy bites, snacks, brunch, and everything delicious ✨</p>
-    <a href="index.html" class="inline-block mt-4 px-4 py-2 text-sm font-semibold text-white bg-yellow-500 rounded-full hover:bg-yellow-600 transition duration-300">🏠 Back to Home</a>
+  <header class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-yellow-200/80 via-yellow-100/70 to-yellow-50 pointer-events-none"></div>
+    <div class="relative bg-cover bg-center" style="background-image: url('/images/brunch.jpg');">
+      <div class="backdrop-filter backdrop-blur-sm bg-white/40">
+        <div class="max-w-6xl mx-auto px-6 py-16 text-center">
+          <h1 class="text-4xl md:text-5xl font-extrabold text-yellow-800">🍱 Explore Food</h1>
+          <p class="text-base md:text-lg text-yellow-800 mt-2">Snacks, brunch, desserts, pizzas & sips — curated for cravings ✨</p>
+          <div class="mt-5 flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="/" class="px-4 py-2 text-sm font-semibold text-white bg-yellow-600 rounded-full hover:bg-yellow-700 transition duration-300">🏠 Back to Home</a>
+            <button id="openUpload" class="px-4 py-2 text-sm font-semibold text-white bg-yellow-600 rounded-full hover:bg-yellow-700 transition duration-300">📸 Share Your Dish</button>
+            <a href="#gallery" class="px-4 py-2 text-sm font-semibold text-yellow-700 bg-white rounded-full hover:bg-yellow-50 border border-yellow-200 transition duration-300">Browse Dishes ↓</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters & Search -->
+    <div class="sticky top-0 z-10 bg-yellow-50/90 backdrop-filter backdrop-blur-md border-b border-yellow-100">
+      <div class="max-w-6xl mx-auto px-6 py-4 flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
+        <div class="flex flex-wrap gap-2" id="filterBar">
+          <button class="px-3 py-1.5 text-sm rounded-full bg-yellow-600 text-white" data-filter="all">All</button>
+          <button class="px-3 py-1.5 text-sm rounded-full bg-white text-yellow-700 border border-yellow-200 hover:bg-yellow-50" data-filter="burger">Burger</button>
+          <button class="px-3 py-1.5 text-sm rounded-full bg-white text-yellow-700 border border-yellow-200 hover:bg-yellow-50" data-filter="dessert">Dessert</button>
+          <button class="px-3 py-1.5 text-sm rounded-full bg-white text-yellow-700 border border-yellow-200 hover:bg-yellow-50" data-filter="pasta">Pasta</button>
+          <button class="px-3 py-1.5 text-sm rounded-full bg-white text-yellow-700 border border-yellow-200 hover:bg-yellow-50" data-filter="drinks">Drinks</button>
+          <button class="px-3 py-1.5 text-sm rounded-full bg-white text-yellow-700 border border-yellow-200 hover:bg-yellow-50" data-filter="pizza">Pizza</button>
+          <button class="px-3 py-1.5 text-sm rounded-full bg-white text-yellow-700 border border-yellow-200 hover:bg-yellow-50" data-filter="brunch">Brunch</button>
+        </div>
+        <div class="flex-1 md:flex-none">
+          <label class="relative block">
+            <span class="sr-only">Search dishes</span>
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-yellow-600">🔎</span>
+            <input id="searchInput" type="text" placeholder="Search dishes..." class="w-full md:w-64 pl-10 pr-3 py-2 rounded-lg border border-yellow-200 focus:outline-none focus:ring-2 focus:ring-yellow-300 bg-white placeholder-yellow-300"/>
+          </label>
+        </div>
+      </div>
+    </div>
   </header>
 
   <!-- Masonry Pinterest Grid -->
-  <main class="p-6 masonry">
+  <main id="gallery" class="p-6 masonry">
 
     <!-- Repeat this block for each food card -->
-    <div class="bg-white rounded-xl overflow-hidden shadow-md masonry-item animate__animated animate__fadeInUp">
-      <img src="images/burger.jpg" alt="Burger">
+    <div class="bg-white rounded-xl overflow-hidden shadow-md masonry-item animate__animated animate__fadeInUp" data-category="burger">
+      <img src="/images/burger.jpg" alt="Cheesy Burger" loading="lazy">
       <div class="p-3">
-        <h2 class="font-semibold text-lg text-yellow-700">Cheesy Burger</h2>
+        <div class="flex items-center justify-between">
+          <h2 class="font-semibold text-lg text-yellow-700">Cheesy Burger</h2>
+          <span class="text-xs px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800">Burger</span>
+        </div>
         <p class="text-sm text-gray-500 mt-1">Juicy & loaded 🍔</p>
       </div>
     </div>
 
-    <div class="bg-white rounded-xl overflow-hidden shadow-md masonry-item animate__animated animate__fadeInUp">
-      <img src="images/cupcake.jpg" alt="Cupcake">
+    <div class="bg-white rounded-xl overflow-hidden shadow-md masonry-item animate__animated animate__fadeInUp" data-category="dessert">
+      <img src="/images/cupcake.jpg" alt="Cute Cupcake" loading="lazy">
       <div class="p-3">
-        <h2 class="font-semibold text-lg text-yellow-700">Cute Cupcake</h2>
+        <div class="flex items-center justify-between">
+          <h2 class="font-semibold text-lg text-yellow-700">Cute Cupcake</h2>
+          <span class="text-xs px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800">Dessert</span>
+        </div>
         <p class="text-sm text-gray-500 mt-1">Sweet & soft 🧁</p>
       </div>
     </div>
 
-    <div class="bg-white rounded-xl overflow-hidden shadow-md masonry-item animate__animated animate__fadeInUp">
-      <img src="images/pasta.jpg" alt="Pasta">
+    <div class="bg-white rounded-xl overflow-hidden shadow-md masonry-item animate__animated animate__fadeInUp" data-category="pasta">
+      <img src="/images/pasta.jpg" alt="Creamy Pasta" loading="lazy">
       <div class="p-3">
-        <h2 class="font-semibold text-lg text-yellow-700">Creamy Pasta</h2>
+        <div class="flex items-center justify-between">
+          <h2 class="font-semibold text-lg text-yellow-700">Creamy Pasta</h2>
+          <span class="text-xs px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800">Pasta</span>
+        </div>
         <p class="text-sm text-gray-500 mt-1">Italian vibes 🇮🇹</p>
       </div>
     </div>
 
-    <div class="bg-white rounded-xl overflow-hidden shadow-md masonry-item animate__animated animate__fadeInUp">
-      <img src="images/milkshake.jpg" alt="Milkshake">
+    <div class="bg-white rounded-xl overflow-hidden shadow-md masonry-item animate__animated animate__fadeInUp" data-category="drinks">
+      <img src="/images/milkshake.jpg" alt="Strawberry Shake" loading="lazy">
       <div class="p-3">
-        <h2 class="font-semibold text-lg text-yellow-700">Strawberry Shake</h2>
+        <div class="flex items-center justify-between">
+          <h2 class="font-semibold text-lg text-yellow-700">Strawberry Shake</h2>
+          <span class="text-xs px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800">Drinks</span>
+        </div>
         <p class="text-sm text-gray-500 mt-1">Chilled & pretty 🍓</p>
       </div>
     </div>
 
-    <div class="bg-white rounded-xl overflow-hidden shadow-md masonry-item animate__animated animate__fadeInUp">
-      <img src="images/pizza.jpg" alt="Pizza">
+    <div class="bg-white rounded-xl overflow-hidden shadow-md masonry-item animate__animated animate__fadeInUp" data-category="pizza">
+      <img src="/images/pizza.jpg" alt="Loaded Pizza" loading="lazy">
       <div class="p-3">
-        <h2 class="font-semibold text-lg text-yellow-700">Loaded Pizza</h2>
+        <div class="flex items-center justify-between">
+          <h2 class="font-semibold text-lg text-yellow-700">Loaded Pizza</h2>
+          <span class="text-xs px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800">Pizza</span>
+        </div>
         <p class="text-sm text-gray-500 mt-1">Melty & hot 🍕</p>
       </div>
     </div>
 
-    <div class="bg-white rounded-xl overflow-hidden shadow-md masonry-item animate__animated animate__fadeInUp">
-      <img src="images/brunch.jpg" alt="Brunch">
+    <div class="bg-white rounded-xl overflow-hidden shadow-md masonry-item animate__animated animate__fadeInUp" data-category="brunch">
+      <img src="/images/brunch.jpg" alt="Sunday Brunch" loading="lazy">
       <div class="p-3">
-        <h2 class="font-semibold text-lg text-yellow-700">Sunday Brunch</h2>
+        <div class="flex items-center justify-between">
+          <h2 class="font-semibold text-lg text-yellow-700">Sunday Brunch</h2>
+          <span class="text-xs px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800">Brunch</span>
+        </div>
         <p class="text-sm text-gray-500 mt-1">Aesthetic plate ☕</p>
       </div>
     </div>
@@ -101,5 +152,354 @@
     <!-- Add more cards by duplicating and changing image & title -->
 
   </main>
+  
+  <!-- Lightbox Modal -->
+  <div id="lightbox" class="fixed inset-0 bg-black/70 hidden items-center justify-center p-4 z-20">
+    <div class="relative max-w-3xl w-full">
+      <button id="closeLightbox" class="absolute -top-10 right-0 text-white text-2xl">✕</button>
+      <img id="lightboxImg" src="" alt="Dish" class="w-full rounded-lg shadow-xl">
+      <div class="mt-3 text-center">
+        <h3 id="lightboxTitle" class="text-white text-lg font-semibold"></h3>
+        <p id="lightboxDesc" class="text-yellow-100 text-sm mt-1"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to top -->
+  <button id="backToTop" class="hidden fixed bottom-6 right-6 z-20 rounded-full bg-yellow-600 text-white w-11 h-11 shadow-lg hover:bg-yellow-700">↑</button>
+
+  <!-- Upload Modal -->
+  <div id="uploadModal" class="fixed inset-0 bg-black/70 hidden items-center justify-center p-4 z-20">
+    <div class="bg-white rounded-xl p-6 max-w-md w-full">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-xl font-semibold text-yellow-700">Share Your Dish</h3>
+        <button id="closeUpload" class="text-gray-500 hover:text-gray-700">✕</button>
+      </div>
+      <form id="uploadForm" class="space-y-4" enctype="multipart/form-data">
+        <input type="hidden" name="page" value="food">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Upload Photos</label>
+          <input type="file" id="photoInput" name="photos" multiple accept="image/*" 
+                 class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 
+                        file:rounded-full file:border-0 file:text-sm file:font-semibold
+                        file:bg-yellow-50 file:text-yellow-700
+                        hover:file:bg-yellow-100"/>
+          <div id="previewContainer" class="mt-2 grid grid-cols-2 gap-2"></div>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Dish Name</label>
+          <input type="text" name="title" required
+                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300"
+                 placeholder="E.g., Chocolate Lava Cake">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+          <select name="category" required
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300">
+            <option value="burger">Burger</option>
+            <option value="dessert">Dessert</option>
+            <option value="pasta">Pasta</option>
+            <option value="drinks">Drinks</option>
+            <option value="pizza">Pizza</option>
+            <option value="brunch">Brunch</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+          <textarea name="description" rows="2" required
+                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300"
+                    placeholder="Add a brief description of your dish..."></textarea>
+        </div>
+        <button type="submit" 
+                class="w-full py-2 px-4 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition duration-300">
+          Share Dish
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const filterBar = document.getElementById('filterBar');
+      const searchInput = document.getElementById('searchInput');
+      const gallery = document.getElementById('gallery');
+      let cards = Array.from(document.querySelectorAll('.masonry-item'));
+
+      // Load persisted uploads from server and render them
+      (async function loadSavedUploads() {
+        try {
+          const resp = await fetch('/api/uploads?page=food');
+          if (!resp.ok) throw new Error('Failed to fetch uploads');
+          const body = await resp.json();
+          if (body && body.files && Array.isArray(body.files)) {
+            // Add each saved file to the gallery (older first)
+            body.files.forEach(entry => {
+              // normalize path (server stores /uploads/filename)
+              let p = entry.path || '';
+              if (!p.startsWith('/')) p = '/' + p;
+              p = encodeURI(p);
+              addFoodCard({
+                path: p,
+                title: entry.title || entry.filename || 'Untitled',
+                category: entry.category || 'all',
+                description: entry.description || ''
+              });
+            });
+          }
+        } catch (err) {
+          console.error('Error loading saved uploads:', err);
+        }
+      })();
+
+      // Function to create a new food card
+      function createFoodCard(data) {
+        console.log('Creating food card with data:', data);
+        const div = document.createElement('div');
+        div.className = 'bg-white rounded-xl overflow-hidden shadow-md masonry-item animate__animated animate__fadeInUp';
+        div.setAttribute('data-category', data.category);
+        
+        const img = new Image();
+        img.onload = () => console.log('Image loaded successfully:', data.path);
+        img.onerror = (e) => console.error('Error loading image:', data.path, e);
+        img.src = data.path;
+        img.alt = data.title;
+        img.setAttribute('loading', 'lazy');
+        
+        div.innerHTML = `
+          <div class="relative">
+            <img src="${data.path}" alt="${data.title}" loading="lazy" onerror="this.onerror=null; console.error('Failed to load image:', this.src);">
+          </div>
+          <div class="p-3">
+            <div class="flex items-center justify-between">
+              <h2 class="font-semibold text-lg text-yellow-700">${data.title}</h2>
+              <span class="text-xs px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800">${data.category}</span>
+            </div>
+            <p class="text-sm text-gray-500 mt-1">${data.description}</p>
+          </div>
+        `;
+
+        // Add click handler for lightbox
+        div.addEventListener('click', () => {
+          const img = div.querySelector('img');
+          const title = div.querySelector('h2').textContent;
+          const desc = div.querySelector('p').textContent;
+          lightboxImg.src = img.src;
+          lightboxImg.alt = title;
+          lightboxTitle.textContent = title;
+          lightboxDesc.textContent = desc;
+          lightbox.classList.remove('hidden');
+          lightbox.classList.add('flex');
+        });
+
+        return div;
+      }
+
+      // Function to add a new food card to the gallery
+      function addFoodCard(data) {
+        const card = createFoodCard(data);
+        gallery.insertBefore(card, gallery.firstChild);
+        cards = Array.from(document.querySelectorAll('.masonry-item')); // Update cards array
+      }
+
+      function applyFilters(activeCategory, searchTerm) {
+        const q = (searchTerm || '').trim().toLowerCase();
+        cards.forEach(card => {
+          const category = card.getAttribute('data-category');
+          const title = card.querySelector('h2')?.textContent.toLowerCase() || '';
+          const desc = card.querySelector('p')?.textContent.toLowerCase() || '';
+          const matchCategory = activeCategory === 'all' || activeCategory === category;
+          const matchSearch = !q || title.includes(q) || desc.includes(q);
+          card.style.display = matchCategory && matchSearch ? '' : 'none';
+        });
+      }
+
+      // Filters
+      let activeCategory = 'all';
+      filterBar.addEventListener('click', (e) => {
+        const btn = e.target.closest('button[data-filter]');
+        if (!btn) return;
+        activeCategory = btn.getAttribute('data-filter');
+        // update button styles
+        filterBar.querySelectorAll('button').forEach(b => {
+          b.classList.remove('bg-yellow-600','text-white');
+          b.classList.add('bg-white','text-yellow-700');
+        });
+        btn.classList.remove('bg-white','text-yellow-700');
+        btn.classList.add('bg-yellow-600','text-white');
+        applyFilters(activeCategory, searchInput.value);
+      });
+
+      // Search
+      searchInput.addEventListener('input', () => {
+        applyFilters(activeCategory, searchInput.value);
+      });
+
+      // Lightbox
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightboxImg');
+      const lightboxTitle = document.getElementById('lightboxTitle');
+      const lightboxDesc = document.getElementById('lightboxDesc');
+      const closeLightbox = document.getElementById('closeLightbox');
+
+      cards.forEach(card => {
+        card.addEventListener('click', () => {
+          const img = card.querySelector('img');
+          const title = card.querySelector('h2')?.textContent || '';
+          const desc = card.querySelector('p')?.textContent || '';
+          lightboxImg.src = img.src;
+          lightboxImg.alt = img.alt || title;
+          lightboxTitle.textContent = title;
+          lightboxDesc.textContent = desc;
+          lightbox.classList.remove('hidden');
+          lightbox.classList.add('flex');
+        });
+      });
+
+      function hideLightbox() {
+        lightbox.classList.add('hidden');
+        lightbox.classList.remove('flex');
+        document.activeElement?.blur?.();
+      }
+      closeLightbox.addEventListener('click', hideLightbox);
+      lightbox.addEventListener('click', (e) => { if (e.target === lightbox) hideLightbox(); });
+      window.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideLightbox(); });
+
+      // Back to top
+      const backToTop = document.getElementById('backToTop');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          backToTop.classList.remove('hidden');
+        } else {
+          backToTop.classList.add('hidden');
+        }
+      });
+      backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+      // Upload Modal Functionality
+      const uploadModal = document.getElementById('uploadModal');
+      const openUpload = document.getElementById('openUpload');
+      const closeUpload = document.getElementById('closeUpload');
+      const uploadForm = document.getElementById('uploadForm');
+      const photoInput = document.getElementById('photoInput');
+      const previewContainer = document.getElementById('previewContainer');
+
+      function showUploadModal() {
+        uploadModal.classList.remove('hidden');
+        uploadModal.classList.add('flex');
+      }
+
+      function hideUploadModal() {
+        uploadModal.classList.add('hidden');
+        uploadModal.classList.remove('flex');
+        uploadForm.reset();
+        previewContainer.innerHTML = '';
+      }
+
+      openUpload.addEventListener('click', showUploadModal);
+      closeUpload.addEventListener('click', hideUploadModal);
+      uploadModal.addEventListener('click', (e) => {
+        if (e.target === uploadModal) hideUploadModal();
+      });
+
+      // Preview uploaded images
+      photoInput.addEventListener('change', function() {
+        previewContainer.innerHTML = '';
+        const files = Array.from(this.files);
+        files.forEach(file => {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            const preview = document.createElement('div');
+            preview.className = 'relative';
+            preview.innerHTML = `
+              <img src="${e.target.result}" class="w-full h-32 object-cover rounded-lg">
+            `;
+            previewContainer.appendChild(preview);
+          }
+          reader.readAsDataURL(file);
+        });
+      });
+
+      // Handle form submission
+      uploadForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const submitButton = this.querySelector('button[type="submit"]');
+        const formData = new FormData(this);
+        formData.append('page', 'food'); // Add page type to form data
+        
+        // Validate that files are selected
+        const files = this.querySelector('input[type="file"]').files;
+        if (files.length === 0) {
+          alert('Please select at least one photo to upload');
+          return;
+        }
+
+        submitButton.disabled = true;
+        submitButton.textContent = 'Uploading...';
+        
+        try {
+          console.log('Starting upload...');
+          const response = await fetch('/upload', {
+            method: 'POST',
+            body: formData
+          });
+          
+          console.log('Response status:', response.status);
+          const responseText = await response.text();
+          console.log('Response text:', responseText);
+
+          let result;
+          if (responseText) {
+            try {
+              result = JSON.parse(responseText);
+            } catch (err) {
+              console.error('Failed to parse response:', err);
+              throw new Error('Invalid response from server');
+            }
+          } else {
+            throw new Error('Empty response from server');
+          }
+
+          if (result.success) {
+            // Get the form data
+            const title = formData.get('title');
+            const category = formData.get('category');
+            const description = formData.get('description');
+
+            // Add the new food card with normalized image path
+            result.files.forEach(file => {
+              let imagePath = file.path || '';
+              // Normalize backslashes to forward slashes (Windows paths may contain "\\")
+              imagePath = imagePath.replace(/\\\\/g, '/');
+              // Remove any leading 'public/' or 'public\\' segment returned by server (case-insensitive)
+              imagePath = imagePath.replace(/^\/?public[\\\/]?/i, '/');
+              // Ensure it starts with a single leading slash
+              if (!imagePath.startsWith('/')) imagePath = '/' + imagePath;
+              // Encode URI to handle spaces and special chars
+              imagePath = encodeURI(imagePath);
+              console.log('Adding card with image path:', imagePath);
+
+              addFoodCard({
+                path: imagePath,
+                title: title,
+                category: category,
+                description: description
+              });
+            });
+
+            alert('Your dish has been shared successfully!');
+            hideUploadModal();
+          } else {
+            throw new Error(result.message || 'Upload failed');
+          }
+        } catch (error) {
+          console.error('Upload error:', error);
+          alert(error.message || 'An error occurred while uploading.');
+        } finally {
+          submitButton.disabled = false;
+          submitButton.textContent = 'Share Dish';
+        }
+      });
+    });
+  </script>
 </body>
 </html>

@@ -1,0 +1,199 @@
+const express = require('express');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+
+const app = express();
+const PORT = 5000;
+
+// Create uploads directory if it doesn't exist
+const uploadDir = path.join(__dirname, 'public', 'uploads');
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+// Disable express default error page
+app.set('json spaces', 2);
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).json({ 
+    success: false, 
+    message: 'Server error: ' + (err.message || 'Unknown error') 
+  });
+});
+
+const express = require('express');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+
+const app = express();
+const PORT = 5000;
+
+// Create uploads directory if it doesn't exist
+const uploadDir = path.join(__dirname, 'public', 'uploads');
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error('Error:', err);
+    res.status(500).json({
+        success: false,
+        message: err.message || 'Internal server error'
+    });
+});
+
+// Middleware to serve static files
+app.use(express.static('public')); // serves /public
+app.use('/views', express.static(path.join(__dirname, 'views'))); // serves /views
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// Serve HTML pages
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'index.html'));
+});
+
+app.get('/food', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'food.html'));
+});
+
+app.get('/fashion', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'fashion.html'));
+});
+
+app.get('/upload', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'upload.html'));
+});
+
+app.get('/game', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'game.html'));
+});
+
+app.get('/photobooth', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'photobooth.html'));
+});
+
+// Multer setup (to save uploaded files in public/uploads)
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    // Ensure the uploads directory exists
+    const dir = 'public/uploads';
+    try {
+      if (!require('fs').existsSync(dir)){
+        require('fs').mkdirSync(dir, { recursive: true });
+      }
+      cb(null, dir);
+    } catch (error) {
+      console.error('Error creating upload directory:', error);
+      cb(error);
+    }
+  },
+  filename: (req, file, cb) => {
+    // Clean the filename to prevent any path traversal issues
+    const safeName = file.originalname.replace(/[^a-zA-Z0-9.-]/g, '_');
+    cb(null, Date.now() + '-' + safeName);
+  }
+});
+
+// Configure multer with file filters and limits
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB file size limit
+    files: 5 // Maximum 5 files
+  },
+  fileFilter: (req, file, cb) => {
+    // Accept only image files
+    if (!file.mimetype.startsWith('image/')) {
+      return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+  }
+});
+
+// Upload route for multiple files
+app.post('/upload', (req, res) => {
+  console.log('Upload request received');
+  console.log('Request headers:', req.headers);
+  
+  // Wrap upload.array in try-catch to handle any initialization errors
+  try {
+    upload.array('photos', 5)(req, res, (err) => {
+      if (err) {
+        console.error('Multer error:', err);
+        if (err.code === 'LIMIT_FILE_SIZE') {
+          return res.status(400).json({
+            success: false,
+            message: 'File is too large. Maximum size is 5MB'
+          });
+        }
+        if (err.code === 'LIMIT_FILE_COUNT') {
+          return res.status(400).json({
+            success: false,
+            message: 'Too many files. Maximum is 5 files'
+          });
+        }
+        if (err.message === 'Only image files are allowed!') {
+          return res.status(400).json({
+            success: false,
+            message: err.message
+          });
+        }
+        return res.status(400).json({
+          success: false,
+          message: 'Error uploading files: ' + err.message
+        });
+      }
+
+      try {
+        if (!req.files || req.files.length === 0) {
+          console.error('No files received');
+          return res.status(400).json({
+            success: false,
+            message: 'No files were uploaded'
+          });
+        }
+
+        console.log('Files received:', req.files.length);
+        console.log('Files details:', req.files.map(f => ({ 
+          originalname: f.originalname,
+          size: f.size,
+          mimetype: f.mimetype,
+          path: f.path
+        })));
+
+        const uploadedFiles = req.files.map(file => ({
+          filename: file.filename,
+          path: file.path.replace('public/', '/') // Convert to URL path
+        }));
+
+        res.json({ 
+          success: true, 
+          message: 'Upload successful!',
+          files: uploadedFiles
+        });
+      } catch (error) {
+        console.error('Processing error:', error);
+        res.status(500).json({ 
+          success: false, 
+          message: 'Error processing uploaded files: ' + error.message
+        });
+      }
+    });
+  } catch (error) {
+    console.error('Upload initialization error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Upload system error: ' + error.message
+    });
+  }
+});
+
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
