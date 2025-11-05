@@ -143,16 +143,17 @@ app.post('/upload', (req, res) => {
             const title = (req.body && req.body.title) ? req.body.title : '';
             const category = (req.body && req.body.category) ? req.body.category : '';
             const description = (req.body && req.body.description) ? req.body.description : '';
-            let page = (req.body && req.body.page) ? req.body.page.toString().toLowerCase() : '';
-
-            // Enforce page to be either 'food' or 'fashion'
-            if (!page || !['food', 'fashion'].includes(page)) {
-                // If no page was supplied, try to infer from the Referer header (best-effort)
+            let page = '';
+            // Only accept explicit page from form, fallback to referer if missing
+            if (req.body && req.body.page && ['food', 'fashion'].includes(req.body.page.toString().toLowerCase())) {
+                page = req.body.page.toString().toLowerCase();
+            } else {
+                // Fallback: try to infer from Referer header
                 const ref = (req.headers && req.headers.referer) ? req.headers.referer.toLowerCase() : '';
                 if (ref.includes('/food')) page = 'food';
                 else if (ref.includes('/fashion')) page = 'fashion';
             }
-
+            // If still not set, reject
             if (!page) {
                 return res.status(400).json({
                     success: false,
