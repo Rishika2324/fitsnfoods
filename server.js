@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 
 // Create uploads directory if it doesn't exist
 const uploadDir = 'public/uploads';
@@ -73,14 +73,17 @@ app.get('/photobooth', (req, res) => {
 
 // API: return saved uploads metadata
 app.get('/api/uploads', (req, res) => {
-    const page = (req.query.page || '').toString().toLowerCase();
-    if (!page || !['food', 'fashion'].includes(page)) {
-        return res.status(400).json({ success: false, message: 'Valid page parameter (food/fashion) is required' });
+    const page = req.query.page;
+    if (!page) {
+        return res.status(400).json({ success: false, message: 'Page parameter is required' });
     }
     const list = readUploadsMetadata();
-    // Filter by saved page (case-insensitive)
-    const filteredList = list.filter(item => item.page && item.page.toLowerCase() === page);
-    console.log(`Serving ${filteredList.length} items for ${page} gallery`);
+    // Only return items that exactly match the requested page
+    const filteredList = list.filter(item => {
+        // Strict matching - must have matching page field
+        return item.page && item.page.toLowerCase() === page.toLowerCase();
+    });
+    console.log(`Filtered ${list.length} items to ${filteredList.length} items for page "${page}"`);
     res.json({ success: true, files: filteredList });
 });
 
@@ -143,21 +146,12 @@ app.post('/upload', (req, res) => {
             const title = (req.body && req.body.title) ? req.body.title : '';
             const category = (req.body && req.body.category) ? req.body.category : '';
             const description = (req.body && req.body.description) ? req.body.description : '';
-            let page = '';
-            // Only accept explicit page from form, fallback to referer if missing
-            if (req.body && req.body.page && ['food', 'fashion'].includes(req.body.page.toString().toLowerCase())) {
-                page = req.body.page.toString().toLowerCase();
-            } else {
-                // Fallback: try to infer from Referer header
-                const ref = (req.headers && req.headers.referer) ? req.headers.referer.toLowerCase() : '';
-                if (ref.includes('/food')) page = 'food';
-                else if (ref.includes('/fashion')) page = 'fashion';
-            }
-            // If still not set, reject
+            const page = (req.body && req.body.page) || '';
+            
             if (!page) {
                 return res.status(400).json({
                     success: false,
-                    message: 'Page parameter is required (upload must come from /food or /fashion)'
+                    message: 'Page parameter is required'
                 });
             }
             
